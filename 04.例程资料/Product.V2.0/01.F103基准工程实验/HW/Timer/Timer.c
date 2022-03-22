@@ -94,25 +94,25 @@ static  void ConfigTimer5(u16 arr,u16 psc)
   NVIC_InitTypeDef NVIC_InitStructure;           //NVIC_InitStructure用于存放NVIC的参数
 
   //使能RCC相关时钟
-  RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM5, ENABLE);          //使能TIM5的时钟
+  RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM4, ENABLE);          //使能TIM5的时钟
   
   //配置TIM5
   TIM_TimeBaseStructure.TIM_Period        = arr;  //设置自动重装载值
   TIM_TimeBaseStructure.TIM_Prescaler     = psc;  //设置预分频器值 
   TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;       //设置时钟分割：tDTS = tCK_INT
   TIM_TimeBaseStructure.TIM_CounterMode   = TIM_CounterMode_Up; //设置向上计数模式
-  TIM_TimeBaseInit(TIM5, &TIM_TimeBaseStructure);               //根据参数初始化定时器
+  TIM_TimeBaseInit(TIM4, &TIM_TimeBaseStructure);               //根据参数初始化定时器
  
-  TIM_ITConfig(TIM5,TIM_IT_Update,ENABLE);                      //使能定时器的更新中断
+  TIM_ITConfig(TIM4,TIM_IT_Update,ENABLE);                      //使能定时器的更新中断
 
   //配置NVIC
-  NVIC_InitStructure.NVIC_IRQChannel = TIM5_IRQn;               //中断通道号
+  NVIC_InitStructure.NVIC_IRQChannel = TIM4_IRQn;               //中断通道号
   NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;     //设置抢占优先级
   NVIC_InitStructure.NVIC_IRQChannelSubPriority = 3;            //设置子优先级
   NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;               //使能中断
   NVIC_Init(&NVIC_InitStructure);                               //根据参数初始化NVIC 
 
-  TIM_Cmd(TIM5, ENABLE);                                        //使能定时器
+  TIM_Cmd(TIM4, ENABLE);                                        //使能定时器
 }
 
 /*********************************************************************************************************
@@ -151,13 +151,13 @@ void TIM2_IRQHandler(void)
 * 创建日期：2018年01月01日
 * 注    意：每毫秒进入一次中断服务函数
 *********************************************************************************************************/
-void TIM5_IRQHandler(void)  
+void TIM4_IRQHandler(void)  
 {
   static  i16 s_iCnt1000  = 0;                        //定义一个静态变量s_iCnt1000作为1s计数器
 
-  if (TIM_GetITStatus(TIM5, TIM_IT_Update) == SET)    //判断定时器更新中断是否发生
+  if (TIM_GetITStatus(TIM4, TIM_IT_Update) == SET)    //判断定时器更新中断是否发生
   {
-    TIM_ClearITPendingBit(TIM5, TIM_FLAG_Update);     //清除定时器更新中断标志 
+    TIM_ClearITPendingBit(TIM4, TIM_FLAG_Update);     //清除定时器更新中断标志 
   }                                                   
                                                       
   s_iCnt1000++;           //1000ms计数器的计数值加1

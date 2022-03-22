@@ -115,7 +115,7 @@ static  void  Proc1SecTask(void)
 { 
   if(Get1SecFlag()) //判断1s标志状态
   {
-    printf("This is the first STM32F103 Project, by Zhangsan\r\n");
+    printf("btc gooooooo to the mooon!\r\n");
     
     Clr1SecFlag();  //清除1s标志
   }    
