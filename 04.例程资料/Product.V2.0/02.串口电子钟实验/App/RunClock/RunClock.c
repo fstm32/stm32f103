@@ -189,5 +189,5 @@ void  SetTimeVal(u8 type, i16 timeVal)
 *********************************************************************************************************/
 void  DispTime(i16 hour, i16 min, i16 sec)    //显示当前的时间
 {
-  printf("Now is %02d:%02d:%02d\n", hour, min, sec);
+  printf("BTC's time: %02d:%02d:%02d\n", hour, min, sec);
 }
